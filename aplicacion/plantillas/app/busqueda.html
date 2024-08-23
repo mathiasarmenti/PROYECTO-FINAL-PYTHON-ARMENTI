@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    {% extends 'plantillas/app/base.html' %}
+
+    {% load static %}
+    
+    {% block contenidoQueCambia %}
+<h2>Búsqueda</h2>
+<form method="get">
+    <input type="text" name="q" placeholder="Buscar...">
+    <button type="submit">Buscar</button>
+</form>
+
+{% if clientes %}
+    <h3>Resultados de Clientes</h3>
+    <ul>
+    {% for cliente in clientes %}
+        <li>{{ cliente.nombre }} - {{ cliente.email }} - {{ cliente.telefono }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+{% if productos %}
+    <h3>Resultados de Productos</h3>
+    <ul>
+    {% for producto in productos %}
+        <li>{{ producto.nombre }} - {{ producto.descripcion }} - {{ producto.precio }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}
+
+
+</body>
+</html>
