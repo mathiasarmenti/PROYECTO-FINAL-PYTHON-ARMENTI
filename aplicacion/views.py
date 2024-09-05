@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from aplicacion.models import Clientes, Producto
 from aplicacion import forms
+from django.contrib.auth.decorators import login_required
+
+
 # Create your views here.
 
 
@@ -36,3 +39,59 @@ def busqueda(request):
         productos = Producto.objects.filter(nombre__icontains=query)
         return render(request, 'plantillas/app/busqueda.html', {'clientes': clientes, 'productos': productos})
     return render(request, 'plantillas/app/busqueda.html')
+
+
+def about(request):
+    return render(request,'plantillas/app/about.html')
+
+
+@login_required
+def leerclientes(request):
+
+      cliente = Clientes.objects.all()
+
+      contexto= {"cliente":cliente} 
+
+      return render(request, 'plantillas/app/leerclientes.html',contexto)
+
+@login_required
+def eliminarcliente(request, cliente_nombre):
+ 
+    cliente = Clientes.objects.get(nombre=cliente_nombre)
+    cliente.delete()
+ 
+    cliente = Clientes.objects.all()  
+ 
+    contexto = {"cliente": cliente}
+ 
+    return render(request, 'plantillas/app/leerclientes.html', contexto)
+
+
+def ClienteFormulario(request):  
+
+    print("Entrando en la vista clienteformulario")  
+
+    if request.method == 'POST':
+        print("Solicitud POST recibida")  
+
+        miFormulario = ClienteFormulario(request.POST) 
+
+        if miFormulario.is_valid():
+            print("Formulario válido")  
+            informacion = miFormulario.cleaned_data
+            cliente = Clientes(nombre=informacion['nombre'], apellido=informacion['apellido'])
+           
+            cliente.save()
+
+            return render(request, 'plantillas/app/padre.html') 
+        else:
+            print("Formulario no válido") 
+
+    else:
+        print("Solicitud GET recibida") 
+        miFormulario = ClienteFormulario()
+
+    return render(request, 'plantillas/app/cliente.html', {"miFormulario": miFormulario})
+
+
+

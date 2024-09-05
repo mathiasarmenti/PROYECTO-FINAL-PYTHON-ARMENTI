@@ -14,11 +14,13 @@
     
     {% block contenidoQueCambia %}
     <h2>Clientes</h2>
-    <form method= "post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Agregar Cliente</button>
-    </form>
+    <div style="display: flex; justify-content: center; align-items: center; height: 40vh;">
+        <form method= "post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Agregar Cliente</button>
+        </form>
+    </div>
         {% endblock %}
 
 

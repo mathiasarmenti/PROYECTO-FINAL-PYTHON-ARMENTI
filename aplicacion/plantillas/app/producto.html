@@ -9,17 +9,17 @@
     <title>Document</title>
 </head>
 <body>
-
-
     {% load static %}
-    
     {% block contenidoQueCambia %}
-        <h2>Productos</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Agregar Producto</button>
-        </form>
-    {% endblock %}
+    <h1 class="display-6 text-center" style="font-size: 50px">Agregar Producto</h1>
+    <p class="display-7 text-center" style="font-size: 15">Ingresar nuevo producto</p>
 
+            <div style="display: flex; justify-content: center; align-items: center; height: 80vh;">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Agregar Producto</button>
+                </form>
+            </div>
+    {% endblock %}
 </body>

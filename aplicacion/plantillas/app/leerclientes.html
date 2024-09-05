@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Clientes</title>
+</head>
+<body>
+
+    {% extends 'plantillas/app/base.html' %}
+
+    {% load static %}
+    
+    {% block contenidoQueCambia %} 
+    
+    <h1>Clientes</h1>
+
+    <ul>
+        {% for cliente in object_list %}
+            <li class="display-6" style="font-size: 16px">
+                <p><strong>Nombre:</strong> {{ cliente.nombre }}</p>
+                <p><strong>Email:</strong> {{ cliente.email }}</p>
+                <p><strong>Teléfono:</strong> {{ cliente.telefono }}</p>
+                <p>
+                    <a href="{% url 'DetailCliente' cliente.id %}">Ver</a>
+                    <a href="{% url 'EditCliente' cliente.id %}">Editar</a>
+                    <a href="{% url 'DeleteCliente' cliente.id %}" onclick="return confirm('¿Estás seguro de que deseas eliminar este cliente?');">Borrar</a>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+    {% endblock %}
+
+</body>
+</html>
